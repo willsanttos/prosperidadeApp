@@ -1,0 +1,7 @@
+{
+  "name": "prosperidadeApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
