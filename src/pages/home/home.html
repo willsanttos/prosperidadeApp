@@ -8,11 +8,9 @@
 
 <ion-content padding>
    <ion-list>
-     <ion-item>Agendamento segunda feira</ion-item>
-     <ion-item>Agendamento Terça feira</ion-item>
-     <ion-item>Agendamento Quarta feira</ion-item>
-     <ion-item>Agendamento Quinta feira</ion-item>
-     <ion-item>Agendamento Sexta feira</ion-item>
-     <ion-item>Agendamento Sábado</ion-item>
+     <ion-item *ngFor="let agendamento of agendamentos">
+       <h2>{{agendamento.nome}}</h2>
+       <p>{{agendamento.data}}</p>
+     </ion-item>
    </ion-list>
 </ion-content>
