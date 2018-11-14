@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { Agendamento } from "../../modelos/agendamento";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'page-home',
@@ -10,20 +11,24 @@ export class HomePage {
 
   public agendamentos: Agendamento[];
    
-  constructor(public navCtrl: NavController) {
-    this.agendamentos = [
-      {nome: "William", data: "12/11/2018 08:30"},
-      {nome: "Anderson", data: "12/11/2018 10:00"},
-      {nome: "João", data: "12/11/2018 14:00"},
-      {nome: "Pedro", data: "12/11/2018 16:30"},
-      {nome: "Lucas", data: "12/11/2018 18:00"},
-      {nome: "Jair", data: "13/11/2018 08:30"},
-      {nome: "William", data: "12/11/2018 08:30"},
-      {nome: "William", data: "12/11/2018 08:30"},
-      {nome: "William", data: "12/11/2018 08:30"},
-      {nome: "William", data: "12/11/2018 08:30"},
-      {nome: "William", data: "12/11/2018 08:30"}
-    ];
+  constructor(public navCtrl: NavController, 
+    private _http: HttpClient,
+    private _loadingCtrl: LoadingController) {
+          
+    let loading = this._loadingCtrl.create({
+      content: 'Aguarde o carregamento dos agendamentos...'
+    })
+
+    loading.present();
+
+    this._http.get<Agendamento[]>('http://165.227.188.44:5555/schedule')
+              .subscribe(
+                (agendamentos) => {
+                  this.agendamentos = agendamentos;
+
+                  loading.dismiss();
+                }
+              );
   }
 
 }
