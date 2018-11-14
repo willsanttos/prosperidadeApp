@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { Agendamento } from "../../modelos/agendamento";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'page-home',
@@ -13,10 +13,11 @@ export class HomePage {
    
   constructor(public navCtrl: NavController, 
     private _http: HttpClient,
-    private _loadingCtrl: LoadingController) {
+    private _loadingCtrl: LoadingController,
+    private _alertCtrl: AlertController) {
           
     let loading = this._loadingCtrl.create({
-      content: 'Aguarde o carregamento dos agendamentos...'
+      content: 'Carregando agendamentos...'
     })
 
     loading.present();
@@ -25,8 +26,20 @@ export class HomePage {
               .subscribe(
                 (agendamentos) => {
                   this.agendamentos = agendamentos;
+                  loading.dismiss();
+                },
+                (err: HttpErrorResponse) => {
+                  console.log(err);
 
                   loading.dismiss();
+
+                  this._alertCtrl.create({
+                    title: 'Falha na conexão',
+                    subTitle: 'Não foi possivel carregar a lista. Tente mais tarde',
+                    buttons: [
+                      {text: 'OK'}
+                    ]
+                  }).present();
                 }
               );
   }
