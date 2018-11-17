@@ -12,7 +12,7 @@ import { AgendamentosServiceProvider } from '../providers/agendamentos-service/a
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage    
   ],
   imports: [
     BrowserModule,

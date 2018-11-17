@@ -1,4 +1,4 @@
 export interface Agendamento{
-    nome: string;
+    obs: string;
     data: string;
 }

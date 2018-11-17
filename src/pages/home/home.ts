@@ -47,4 +47,8 @@ export class HomePage implements NavLifeCycles {
                 );
     }
 
+    SelecionaAgendamento(agendamento: Agendamento){
+      console.log(agendamento);
+    }
+
 }
